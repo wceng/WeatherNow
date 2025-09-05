@@ -43,7 +43,7 @@ class HomeScreenViewModel @Inject constructor(
             routeSelectedCityId?.let {
                 savedStateHandle[SelectedCityKey] = it
             }
-            println("HomeScreenViewModel initial cityId: $routeSelectedCityId")
+//            println("HomeScreenViewModel initial cityId: $routeSelectedCityId")
         }
     }
 
@@ -78,7 +78,7 @@ class HomeScreenViewModel @Inject constructor(
             if (userDataRepository.userData.map { it.currentCityId }.first() == cityId) {
                 userDataRepository.setCurrentCityId(null)
             }
-            println("HomeScreenViewModel: deleteCity:$cityId")
+//            println("HomeScreenViewModel: deleteCity:$cityId")
         }
     }
 
@@ -102,7 +102,7 @@ class HomeScreenViewModel @Inject constructor(
 
     fun selectCity(cityId: String) {
         savedStateHandle[SelectedCityKey] = cityId
-        println("HomeScreenViewModel: selectCity: $cityId ")
+//        println("HomeScreenViewModel: selectCity: $cityId ")
     }
 }
 

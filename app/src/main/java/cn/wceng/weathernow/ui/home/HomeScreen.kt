@@ -158,11 +158,11 @@ private fun HomeContentScaffold(
     onShowUserMessage: (String) -> Unit,
 ) {
     LaunchedEffect(selectableCityWithWeathersModel) {
-        println(
-            "AllPageNumber:${selectableCityWithWeathersModel.allCityWithWeathers.size}" +
-                    " SelectedCityId:${selectableCityWithWeathersModel.selectedCity?.city?.id}" +
-                    ""
-        )
+//        println(
+//            "AllPageNumber:${selectableCityWithWeathersModel.allCityWithWeathers.size}" +
+//                    " SelectedCityId:${selectableCityWithWeathersModel.selectedCity?.city?.id}" +
+//                    ""
+//        )
     }
 
     val initialPage by remember {
@@ -171,8 +171,9 @@ private fun HomeContentScaffold(
 
 
     val scope = rememberCoroutineScope()
-    val pagerState =
-        rememberPagerState(initialPage = initialPage) { selectableCityWithWeathersModel.pageCount }
+    val pagerState = rememberPagerState(initialPage = initialPage) {
+        selectableCityWithWeathersModel.pageCount
+    }
 
     val listDetailPaneScaffoldNavigator = rememberListDetailPaneScaffoldNavigator(
         initialDestinationHistory = listOf(
@@ -279,7 +280,7 @@ private fun HomeContentListDetailPane(
 
                             pagerState.animateScrollToPage(pageIndex)
 
-                            if(listDetailNavigator.canNavigateBack()){
+                            if (listDetailNavigator.canNavigateBack()) {
                                 listDetailNavigator.navigateBack()
                             }
                         }
@@ -295,14 +296,15 @@ private fun HomeContentListDetailPane(
                 HorizontalPager(
                     state = pagerState,
                     key = {
-                        selectableCityWithWeathersModel.allCityWithWeathers[it].city.id
+                        selectableCityWithWeathersModel.allCityWithWeathers
+                            .getOrNull(it)?.city?.id ?: ""
                     }
                 ) { pagerIndex ->
                     val currentCity =
                         selectableCityWithWeathersModel.allCityWithWeathers[pagerIndex]
 
                     LaunchedEffect(currentCity) {
-                        println("HorizontalPager: Page current index: $pagerIndex city id: ${currentCity.city.id}")
+//                        println("HorizontalPager: Page current index: $pagerIndex city id: ${currentCity.city.id}")
                     }
                     NestedNavigateWeatherDetailScreen(
                         cityId = currentCity.city.id,

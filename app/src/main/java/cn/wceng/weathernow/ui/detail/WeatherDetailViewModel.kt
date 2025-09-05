@@ -1,5 +1,8 @@
 package cn.wceng.weathernow.ui.detail
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,14 +33,15 @@ class WeatherDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _cityId = savedStateHandle.toRoute<NestedWeatherDetailScreenRoute>().cityId
-    val cityIdStateFlow = savedStateHandle.getStateFlow(LOCAL_KEY, _cityId)
+    private val cityIdStateFlow = savedStateHandle.getStateFlow(LOCAL_KEY, _cityId)
 
-    val selectedCity = cityIdStateFlow
+    private val selectedCity = cityIdStateFlow
         .flatMapLatest { cityId ->
             getCityWithWeatherUseCase(cityId)
         }
 
     private val _refreshing = MutableStateFlow(false)
+    var userMessage: String? by mutableStateOf(null)
 
     val uiState: StateFlow<WeatherDetailUiState> = combine(
         _refreshing,
@@ -66,8 +70,7 @@ class WeatherDetailViewModel @Inject constructor(
             _refreshing.value = true
             weatherRepository.refreshWeather(_cityId)
                 .onFailure {
-                    //TODO
-//                    userMessage = "刷新失败"
+                    userMessage = "刷新失败"
                 }
             _refreshing.value = false
         }

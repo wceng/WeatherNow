@@ -283,5 +283,6 @@ val previewNowWeather = NowWeather(
     nowTempDesc = "晴朗",
     location = "唯亭，吴中区，苏州，江苏省，中国",
     feelsLike = "体感 35°",
-    iconRes = R.drawable.ic_weather_100 // 请替换为您的晴天图标资源
+    iconRes = R.drawable.ic_weather_100, // 请替换为您的晴天图标资源
+    lastUpdateTimeText = "上午9:30"
 )

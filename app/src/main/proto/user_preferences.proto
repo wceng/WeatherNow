@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "cn.wceng.weathernow.data.datastore";
+option java_multiple_files = true;
+
+message UserPreferences {
+    map<string, bool> saved_cities = 1;
+    string current_city_id = 2;
+}
